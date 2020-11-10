@@ -69,3 +69,44 @@
 
     module.exports = connectDB;
 	```
+  - ### Models
+	
+    In order to interact with our database we have create models
+    This project consist of 3 models:-
+    - User
+    	This model consist of following fields
+        - name
+        - email
+        - password
+        - avatar:- It allows you to attach profile image to your email.
+        - date
+        - code overview:- 
+        ```javascript
+		const mongoose = require('mongoose');
+        const UserSchema = new mongoose.Schema({
+            name: {
+                type: String,
+                required: true
+            },
+            email: {
+                type: String,
+                required: true,
+                unique: true
+            },
+            password: {
+                type: String,
+                required: true
+            },
+            avatar: {
+                type: String,
+
+            },
+            date: {
+                type: Date,
+                default: Date.now
+            }
+        });
+		module.exports = User = mongoose.model('user', UserSchema);
+			```
+    - Profile
+    - Post
