@@ -39,7 +39,39 @@
 		- METHOD is an HTTP request method, in lowercase.
 		- PATH is a path on the server.
 		- HANDLER is the function executed when the route is matched.
-       
+		
+    - #### Routes-api
+    	It consist of 4 routes
+        - user
+        	- Here you can register new user
+        	  - method - `post`
+        	  - api- `/api/users`
+             - ```javascript
+             	 router.post('/',[
+                        check('name', 'Name is required').not().isEmpty(),
+                        check('email', 'Please Enter a Valid Email').isEmail(),
+                        check(
+                          'password',
+                          'Please enter a password with 6 or more characters'
+                        ).isLength({ min: 6 }),
+                      ],
+                      (req, res) => {
+                        const errors = validationResult(req);
+                        if (!errors.isEmpty()) {
+                            return res.status(400).json({ errors: errors.array() });
+                        }
+                        res.send('User route');
+                      }
+                    );	
+			     ```
+        	- 
+        - profile
+        - posts
+        - auth
+    - #### Express Validators:- This will help us to validate the data which user sends.This is actually a middleware that checks data for us. For Ex:- `check('username').isEmail()` this rule will check that email id is in correct format or not.
+      ```javascript
+	  const { check, validationResult } = require('express-validator/check');
+	  ```
 - ### Mongoose
      Mongoose is one of the Node.js libraries that provides MongoDB object mapping, in a simple manner "Mongoose is a library of Node.js, it provides interaction with MongoDB using Object-Relation- Mapping".
 
@@ -69,7 +101,7 @@
 
     module.exports = connectDB;
 	```
-  - ### Models
+- ### Models
 	
     In order to interact with our database we have create models
     This project consist of 3 models:-
