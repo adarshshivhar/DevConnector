@@ -42,11 +42,12 @@
 		
     - #### Routes-api
     	It consist of 4 routes
-        - user
+        - #### USER
         	- Here you can register new user
         	  - method - `post`
         	  - api- `/api/users`
-             - ```javascript
+        	  - code overview:-
+        	  	```javascript
              	 router.post('/',[
                         check('name', 'Name is required').not().isEmpty(),
                         check('email', 'Please Enter a Valid Email').isEmail(),
@@ -65,9 +66,9 @@
                     );	
 			     ```
         	- 
-        - profile
-        - posts
-        - auth
+        - #### PROFILE
+        - #### POST
+        - #### AUTH
     - #### Express Validators:- This will help us to validate the data which user sends.This is actually a middleware that checks data for us. For Ex:- `check('username').isEmail()` this rule will check that email id is in correct format or not.
       ```javascript
 	  const { check, validationResult } = require('express-validator/check');
