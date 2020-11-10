@@ -46,11 +46,7 @@
         	- Here you can register new user
         	  - method - `post`
         	  - api- `/api/users`
-<<<<<<< HEAD
         	  - validation code overview :-
-=======
-        	  - code overview:-
->>>>>>> f81a18da2fabd682e4e987e03dcd68f6141d92e6
         	  	```javascript
              	 router.post('/',[
                         check('name', 'Name is required').not().isEmpty(),
@@ -67,7 +63,6 @@
                         }
                         res.send('User route');
                       }
-<<<<<<< HEAD
                     );
                 ```
             - user register logic code overview:-
@@ -119,11 +114,6 @@
               }
                 ```
     
-=======
-                    );	
-			     ```
-        	- 
->>>>>>> f81a18da2fabd682e4e987e03dcd68f6141d92e6
         - #### PROFILE
         - #### POST
         - #### AUTH
