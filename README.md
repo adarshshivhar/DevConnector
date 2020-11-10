@@ -42,11 +42,12 @@
 		
     - #### Routes-api
     	It consist of 4 routes
-        - user
+        - #### USER
         	- Here you can register new user
         	  - method - `post`
         	  - api- `/api/users`
-             - ```javascript
+        	  - validation code overview :-
+        	  	```javascript
              	 router.post('/',[
                         check('name', 'Name is required').not().isEmpty(),
                         check('email', 'Please Enter a Valid Email').isEmail(),
@@ -62,12 +63,60 @@
                         }
                         res.send('User route');
                       }
-                    );	
-			     ```
-        	- 
-        - profile
-        - posts
-        - auth
+                    );
+                ```
+            - user register logic code overview:-
+              ```javascript
+                async (req, res) => {
+                const errors = validationResult(req);
+                if (!errors.isEmpty()) {
+                  return res.status(400).json({ errors: errors.array() });
+                }
+
+                const { name, email, password } = req.body;
+
+                try {
+                  let user = await User.findOne({ email });
+
+                  // See if user exists
+                  if(user) {
+                    res.status(400).json({ errors: [{ msg: 'User already exists' }] });
+                  }
+
+                  // Get users gravatar
+                  const avatar = gravatar.url(email, {
+                      s: '200',
+                      r: 'pg',
+                      d: 'mm'
+                  });
+
+                  user = new User({
+                      name,
+                      email,
+                      avatar,
+                      password
+                  });
+
+                  // Encrypt password using bycrypt
+                  const salt = await bcrypt.genSalt(10);
+
+                  user.password = await bcrypt.hash(password, salt);
+
+                  await user.save();
+
+                  // Return jsonwebtoken
+
+                  res.send('User registered');
+                } catch (err) {
+                    console.error(err.message);
+                    res.status(500).send('Server error');
+                }
+              }
+                ```
+    
+        - #### PROFILE
+        - #### POST
+        - #### AUTH
     - #### Express Validators:- This will help us to validate the data which user sends.This is actually a middleware that checks data for us. For Ex:- `check('username').isEmail()` this rule will check that email id is in correct format or not.
       ```javascript
 	  const { check, validationResult } = require('express-validator/check');
