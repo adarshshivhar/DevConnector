@@ -23,7 +23,39 @@
     
     - #### Middleware
        - I talked briefly about middleware as functions that execute after the server receives the request and before the controller action sends the response, but there are a few more things that are specific to middleware. The biggest thing is that middleware functions have access to the response (res) and request (req) variables and can modify them or use them as needed. Middleware functions also have a third parameter which is a next function. This function is important since it must be called from a middleware for the next middleware to be executed. If this function is not called then none of the other middleware including the controller action will be called.
-       -  
+       - **Custom Auth Middleware**:- This will help to protect the routes and allow to access data only when you have correct token. In another way this will help in authentication of user. How Custome Auth Middleware Work:- 
+         - Get the token from header
+         - Check if token is present or not
+         	- Not Present:- msg: 'No token, authorization denied'
+         	- Present:- Decode that token and take the data from that token
+         - Call `next()` so next middleware will call 
+         - Code Overview:- 
+           ```javascript
+            const jwt = require('jsonwebtoken');
+            const config = require('config');
+
+            module.exports = function (req, res, next) {
+              //Get the token from header
+              const token = req.header('x-auth-token');
+
+              //Check if no token
+              if (!token) {
+                return res.status(401).json({ msg: 'No token, authorization denied' });
+              }
+
+              //Verify token
+              try {
+                // Token is valid then decoded it and take the data from that token
+                const decoded = jwt.verify(token, config.get('jwtSecret'));
+
+                req.user = decoded.user;
+
+                next();
+              } catch (err) {
+                res.status(401).json({ msg: 'Token is not valid' });
+              }
+            };
+           ```
        
        
             
@@ -117,9 +149,9 @@
                   }
                 }
                 ```
-             - Implementing JWT
-               ```javascript
-			   //Return jsonwebtoken
+              - Implementing JWT
+                ```javascript
+			         //Return jsonwebtoken
                   const payload = {
                     user: {
                       id: user.id,
@@ -135,11 +167,12 @@
                       res.json({ token });
                     }
                   );
-			   ```
+			          ```
     
         - #### PROFILE
         - #### POST
         - #### AUTH
+          - Here You can authenciate user using custom middleware and if user is valid he will receive data. 
     - #### Express Validators:- This will help us to validate the data which user sends.This is actually a middleware that checks data for us. For Ex:- `check('username').isEmail()` this rule will check that email id is in correct format or not.
       ```javascript
 	  const { check, validationResult } = require('express-validator/check');
