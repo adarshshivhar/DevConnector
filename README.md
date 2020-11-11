@@ -66,7 +66,7 @@
                     );
                 ```
               - user register logic code overview:-
-              ```javascript
+                ```javascript
                 async (req, res) => {
                 const errors = validationResult(req);
                 if (!errors.isEmpty()) {
