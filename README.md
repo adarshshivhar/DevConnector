@@ -173,6 +173,14 @@
         - #### POST
         - #### AUTH
           - Here You can authenciate user using custom middleware and if user is valid he will receive data. 
+          - Login user and return token so that he can get the data. Steps Involve are:-
+            - Check email and password using express-validator
+            - Find user using email
+            - See if user exists
+            - See if password match. Here we use `bycrypt` to compare password
+            - Return jsonwebtoken
+
+
     - #### Express Validators:- This will help us to validate the data which user sends.This is actually a middleware that checks data for us. For Ex:- `check('username').isEmail()` this rule will check that email id is in correct format or not.
       ```javascript
 	  const { check, validationResult } = require('express-validator/check');

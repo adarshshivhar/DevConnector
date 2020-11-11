@@ -18,6 +18,10 @@ const jwt = require('jsonwebtoken');
 //Bring jwt secret
 const config = require('config');
 
+// ===================================================================== //
+
+// ===================================================================== //
+
 // @route    POST api/users
 // @desc     Register User
 // @access   Public
@@ -44,7 +48,9 @@ router.post(
 
       // See if user exists
       if (user) {
-        res.status(400).json({ errors: [{ msg: 'User already exists' }] });
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'User already exists' }] });
       }
 
       // Get users gravatar
