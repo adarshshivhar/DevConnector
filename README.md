@@ -22,7 +22,11 @@
 	Express.js is based on the Node.js middleware module called connect which in turn uses http module. So, any middleware which is based on connect will also work with Express.js.
     
     - #### Middleware
-       I talked briefly about middleware as functions that execute after the server receives the request and before the controller action sends the response, but there are a few more things that are specific to middleware. The biggest thing is that middleware functions have access to the response (res) and request (req) variables and can modify them or use them as needed. Middleware functions also have a third parameter which is a next function. This function is important since it must be called from a middleware for the next middleware to be executed. If this function is not called then none of the other middleware including the controller action will be called.
+       - I talked briefly about middleware as functions that execute after the server receives the request and before the controller action sends the response, but there are a few more things that are specific to middleware. The biggest thing is that middleware functions have access to the response (res) and request (req) variables and can modify them or use them as needed. Middleware functions also have a third parameter which is a next function. This function is important since it must be called from a middleware for the next middleware to be executed. If this function is not called then none of the other middleware including the controller action will be called.
+       -  
+       
+       
+            
     - #### Routing
     	Routing refers to determining how an application responds to a client request to a particular endpoint, which is a URI (or path) and a specific HTTP request method (GET, POST, and so on).
         
@@ -65,8 +69,8 @@
                       }
                     );
                 ```
-            - user register logic code overview:-
-              ```javascript
+              - user register logic code overview:-
+                ```javascript
                 async (req, res) => {
                 const errors = validationResult(req);
                 if (!errors.isEmpty()) {
@@ -110,9 +114,28 @@
                 } catch (err) {
                     console.error(err.message);
                     res.status(500).send('Server error');
+                  }
                 }
-              }
                 ```
+             - Implementing JWT
+               ```javascript
+			   //Return jsonwebtoken
+                  const payload = {
+                    user: {
+                      id: user.id,
+                    },
+                  };
+
+                  jwt.sign(
+                    payload,
+                    config.get('jwtSecret'),
+                    { expiresIn: 360000 },
+                    (err, token) => {
+                      if (err) throw err;
+                      res.json({ token });
+                    }
+                  );
+			   ```
     
         - #### PROFILE
         - #### POST
@@ -191,3 +214,9 @@
 			```
     - Profile
     - Post
+
+- ### JWT(JSON Web Token) 
+	Json Web Token is also act like a middleware which helps to authenticate the user.Valid user get the json web token in return while login. JWT consist of three things:- 
+	- Header:- Algo and token type
+	- Payload:- Data
+	- Verify Signature
