@@ -65,7 +65,7 @@
                       }
                     );
                 ```
-            - user register logic code overview:-
+              - user register logic code overview:-
               ```javascript
                 async (req, res) => {
                 const errors = validationResult(req);
