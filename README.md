@@ -254,6 +254,35 @@
 		module.exports = User = mongoose.model('user', UserSchema);
 			```
     - Profile
+      This model consist of following fields
+        - user:- It act as a foreign key means for which user this profile is creted
+        - company
+        - website
+        - location
+        - status
+        - skills
+        - bio
+        - githubusername:- This is use to show github repository of user
+        - experience:- It is array of objects
+          - title
+          - company
+          - location
+          - from
+          - to
+          - current
+          - description
+        - education:- It is also array of objects
+          - school
+          - degree
+          - fieldofstudy
+          - from
+          - to
+          - current
+          - description
+        - social:- It is an object
+          - youtube, github, facebook, linkedin, instagram, 
+        - date
+
     - Post
 
 - ### JWT(JSON Web Token) 
