@@ -170,6 +170,7 @@
 			          ```
     
         - #### PROFILE
+          - Here you get to know profile is created or not of that user who logged in. If created then he will receive data related to his profile.
         - #### POST
         - #### AUTH
           - Here You can authenciate user using custom middleware and if user is valid he will receive data. 
